@@ -20,8 +20,8 @@ class Prestador extends Model {
 				cidade: Sequelize.STRING,
 				estado: Sequelize.STRING,
 				longitude: Sequelize.STRING,
-        latitude: Sequelize.STRING,
-				tipo: Sequelize.JSON,
+				latitude: Sequelize.STRING,
+				tipo: Sequelize.JSON
 			},
 			{
 				sequelize
@@ -35,6 +35,10 @@ class Prestador extends Model {
 		});
 
 		return this;
+	}
+
+  checkSenha(senha) {
+		return bcrypt.compare(senha, this.senha_hash);
 	}
 }
 
