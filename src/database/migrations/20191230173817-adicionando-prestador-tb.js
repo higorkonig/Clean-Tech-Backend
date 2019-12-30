@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		return queryInterface.createTable('prestadores', {
+		return queryInterface.createTable('prestadors', {
 			id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
@@ -13,7 +13,7 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: false
 			},
-			resposavel: {
+			responsavel: {
 				type: Sequelize.STRING,
 				allowNull: false
       },
@@ -81,6 +81,6 @@ module.exports = {
 	},
 
 	down: (queryInterface, Sequelize) => {
-		return queryInterface.dropTable('prestadores');
+		return queryInterface.dropTable('prestadors');
 	}
 };

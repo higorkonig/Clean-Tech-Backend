@@ -11,9 +11,8 @@ class Prestador extends Model {
 				email: Sequelize.STRING,
 				senha: Sequelize.VIRTUAL,
 				senha_hash: Sequelize.STRING,
-				tipo: Sequelize.STRING,
 				telefone: Sequelize.STRING,
-				cpf_cpnj: Sequelize.STRING,
+				cpf_cnpj: Sequelize.STRING,
 				logradouro: Sequelize.STRING,
 				numero: Sequelize.STRING,
 				cep: Sequelize.STRING,
@@ -21,7 +20,8 @@ class Prestador extends Model {
 				cidade: Sequelize.STRING,
 				estado: Sequelize.STRING,
 				longitude: Sequelize.STRING,
-				latitude: Sequelize.STRING,
+        latitude: Sequelize.STRING,
+				tipo: Sequelize.JSON,
 			},
 			{
 				sequelize
