@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
 
 //Models
+import Prestador from '../app/models/Prestador'
 
-
-const models = [];
+const models = [Prestador];
 
 
 import databaseConfig from '../config/database';
@@ -20,3 +20,5 @@ class Database {
     models.map(model => model.init(this.connection));
   }
 }
+
+export default new Database();

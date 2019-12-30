@@ -61,10 +61,6 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: false
       },
-      logradouro: {
-				type: Sequelize.STRING,
-				allowNull: true
-      },
       longitude: {
 				type: Sequelize.STRING,
 				allowNull: true
