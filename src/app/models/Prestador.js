@@ -21,7 +21,7 @@ class Prestador extends Model {
 				estado: Sequelize.STRING,
 				longitude: Sequelize.STRING,
 				latitude: Sequelize.STRING,
-				tipo: Sequelize.JSON
+        tipo: Sequelize.JSON, 
 			},
 			{
 				sequelize
