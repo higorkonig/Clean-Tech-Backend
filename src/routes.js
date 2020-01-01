@@ -4,6 +4,7 @@ import { Router } from 'express';
 import PrestadorController from './app/controllers/PrestadorController';
 import LoginPrestadorController from './app/controllers/LoginPrestadorController';
 import EsqueciSenhaPrestadorController from './app/controllers/EsqueciSenhaPrestadorController';
+import BuscaCEPController from './app/controllers/BuscaCEPController';
 
 //Middlewares
 import LoginPrestadorMiddleware from './app/middlewares/LoginPrestadorMiddleware';
@@ -14,6 +15,7 @@ const routes = Router();
 //Routes Web sem Autenticação
 routes.post('/prestador', PrestadorController.store);
 routes.post('/login', LoginPrestadorController.store);
+routes.get('/cep/:cep', BuscaCEPController.store);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.store);
 //
 //Routes App sem Autenticação
