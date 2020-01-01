@@ -7,17 +7,22 @@ import EsqueciSenhaPrestadorController from './app/controllers/EsqueciSenhaPrest
 
 //Middlewares
 import LoginPrestadorMiddleware from './app/middlewares/LoginPrestadorMiddleware';
+import Prestador from './app/models/Prestador';
 
 const routes = Router();
 
-//Routes Web
+//Routes Web sem Autenticação
 routes.post('/prestador', PrestadorController.store);
 routes.post('/login', LoginPrestadorController.store);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.store);
 //
-//Routes App
+//Routes App sem Autenticação
 
 //
+
 routes.use(LoginPrestadorMiddleware);
+
+//Routes Web com Autenticação
+routes.put('/prestador', PrestadorController.update);
 
 export default routes;

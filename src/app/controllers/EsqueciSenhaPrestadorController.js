@@ -27,7 +27,7 @@ class EsqueciSenhaPrestadorController {
     
 		mailer.sendMail(
 			{
-				from: 'Recuperação de senha <suporte@cleantech.com>',
+				from: 'Recuperação de senha <higor@shump.xyz>',
 				to: `${prestador.responsavel} <${email}>`,
 				subject: `Recuperação de senha`,
 				html: `<p>Olá ${prestador.responsavel} da empresa ${prestador.nome}, aqui está a sua nova senha, lembre-se de quando acessar troca-la</p>
