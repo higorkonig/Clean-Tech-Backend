@@ -1,3 +1,5 @@
+import * as Yup from 'yup';
+
 //Model
 import Prestador from '../models/Prestador';
 
