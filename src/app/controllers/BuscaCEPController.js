@@ -10,7 +10,7 @@ class BuscaCEPController {
 					cep: result.cep,
 					tipo_endereco: result.address_type,
 					nome_endereco: result.address_name,
-					endereco: result.address,
+					logradouro: result.address,
 					bairro: result.district,
 					cidade: result.city,
 					estado: result.state,

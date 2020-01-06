@@ -1,15 +1,6 @@
 import express from 'express';
 import routes from './routes';
-
-// const app = express();
-// const port = 3000
-
-// app.listen(port, () => {
-//   console.log('Server ligado rodando na porta ' + port);
-// });
-// app.use(express.json());
-
-// app.use(routes);
+import cors from 'cors';
 
 import './database';
 
@@ -21,6 +12,7 @@ class Server {
 	}
 
 	middlewares() {
+    this.server.use(cors()); 
 		this.server.use(express.json());
 	}
 

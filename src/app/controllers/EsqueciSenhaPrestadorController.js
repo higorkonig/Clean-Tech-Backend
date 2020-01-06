@@ -10,7 +10,7 @@ class EsqueciSenhaPrestadorController {
 
 		const prestador = await Prestador.findOne({ where: { email } });
 
-		if (!prestador) return res.status(400).json({ erro: 'Usuário não existe' });
+		if (!prestador) return res.status(400).json({ erro: 'Usuário não existe T.T' });
 
 		const novaSenha = crypto.randomBytes(6).toString('hex');
 
