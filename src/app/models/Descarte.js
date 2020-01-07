@@ -7,10 +7,10 @@ class Descarte extends Model {
 	static init(sequelize) {
 		super.init(
 			{
-				id_user: Sequelize.STRING,
-				id_prestador: Sequelize.STRING,
+				id_user: Sequelize.INTEGER,
+				id_prestador: Sequelize.INTEGER,
 				tipo: Sequelize.JSON,
-				quatidade: Sequelize.STRING
+				quantidade: Sequelize.INTEGER,
 			},
 			{
 				sequelize

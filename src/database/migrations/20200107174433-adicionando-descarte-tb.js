@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		return queryInterface.createTable('descart', {
+		return queryInterface.createTable('descartes', {
 			id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
@@ -16,7 +16,7 @@ module.exports = {
         onDelete: 'SET NULL',
         allowNull: true,
 			},
-			id_provedor: {
+			id_prestador: {
 				type: Sequelize.INTEGER,
 				references: { model: 'prestadors', key: 'id' },
         onUpdate: 'CASCADE',
@@ -28,7 +28,7 @@ module.exports = {
 				allowNull: false
 			},
       quantidade: {
-				type: Sequelize.STRING,
+				type: Sequelize.INTEGER,
 				allowNull: false
 			},
 			created_at: {
@@ -43,6 +43,6 @@ module.exports = {
 	},
 
 	down: (queryInterface, Sequelize) => {
-		Example: return queryInterface.dropTable('descart');
+		Example: return queryInterface.dropTable('descartes');
 	}
 };

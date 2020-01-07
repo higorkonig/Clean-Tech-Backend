@@ -40,5 +40,7 @@ routes.get('/prestador/:id', PrestadorController.index);
 
 //Routes App com Autenticação
 routes.put('/user', UserController.update);
+routes.post('/descarte', DescarteController.store);
+
 
 export default routes;

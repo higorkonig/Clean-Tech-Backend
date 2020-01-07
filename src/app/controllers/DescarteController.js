@@ -1,6 +1,40 @@
 import Prestador from '../models/Prestador';
+import User from '../models/User';
+import Descarte from '../models/Descarte';
+class DescarteController {
+	async store(req, res) {
+		const data = req.body;
+		const { id_user, id_prestador, tipo, quantidade } = await Descarte.create(
+			{
+				id_user: data.id_user,
+				id_prestador: data.id_prestador,
+				tipo: data.tipo,
+				quantidade: data.quantidade
+			},
+			{ attributes: ['id_user', 'id_prestador', 'tipo', 'quantidade'] }
+    );
+    
+    const totalPontos = Number(quantidade) + Number(req.body.pontos);
 
-class ListarController {
+    const user = await User.findByPk(req.userId);
+
+		const { pontuacao } = await user.update({
+			pontuacao: Number(user.dataValues.pontuacao) + Number(totalPontos)
+		});
+
+		return res.json({
+			descarte: {
+				id_user,
+				id_prestador,
+				tipo,
+				quantidade
+			},
+			user: {
+				pontuacao
+			}
+		});
+	}
+
 	async index(req, res) {
 		const { tipo } = req.query;
 
@@ -40,4 +74,4 @@ class ListarController {
 	}
 }
 
-export default new ListarController();
+export default new DescarteController();
