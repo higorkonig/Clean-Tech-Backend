@@ -53,7 +53,7 @@ class PrestadorController {
 	async update(req, res) {
 		const { senha_antiga } = req.body;
 
-		const prestador = await Prestador.findByPk(req.prestadorId);
+		const prestador = await Prestador.findByPk(req.userId);
 
 		if (senha_antiga && !(await prestador.checkSenha(senha_antiga))) {
 			return res.status(400).json({ erro: 'A senhas não são iguais' });
@@ -79,6 +79,43 @@ class PrestadorController {
 
 		return res.json({
 			id,
+			nome,
+			responsavel,
+			email,
+			tipo,
+			telefone,
+			cpf_cnpj,
+			logradouro,
+			numero,
+			cep,
+			bairro,
+			cidade,
+			estado,
+			longitude,
+			latitude
+		});
+	}
+
+	async index(req, res) {
+		const { id } = req.params;
+
+		const {
+			nome,
+			responsavel,
+			email,
+			tipo,
+			telefone,
+			cpf_cnpj,
+			logradouro,
+			numero,
+			cep,
+			bairro,
+			cidade,
+			estado,
+			longitude,
+			latitude
+		} = await Prestador.findOne({ where: { id } });
+		return res.json({
 			nome,
 			responsavel,
 			email,

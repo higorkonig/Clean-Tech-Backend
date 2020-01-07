@@ -1,15 +1,19 @@
 import { Router } from 'express';
 
-//Controllers
+//Controllers Prestador
 import PrestadorController from './app/controllers/PrestadorController';
 import LoginPrestadorController from './app/controllers/LoginPrestadorController';
 import EsqueciSenhaPrestadorController from './app/controllers/EsqueciSenhaPrestadorController';
 import BuscaCEPController from './app/controllers/BuscaCEPController';
-// import ListarController from './app/controllers/ListarController';
+import DescarteController from './app/controllers/DescarteController';
+
+//Controllers User
+import UserController from './app/controllers/UserController';
+import LoginUserController from './app/controllers/LoginUserController';
+import EsqueciSenhaUserController from './app/controllers/EsqueciSenhaUserController'
 
 //Middlewares
-import LoginPrestadorMiddleware from './app/middlewares/LoginPrestadorMiddleware';
-import Prestador from './app/models/Prestador';
+import LoginMiddleware from './app/middlewares/LoginMiddleware';
 
 const routes = Router();
 
@@ -17,17 +21,24 @@ const routes = Router();
 routes.post('/prestador', PrestadorController.store);
 routes.post('/login', LoginPrestadorController.store);
 routes.get('/cep/:cep', BuscaCEPController.busca);
-routes.get('/cep/:lag/:log', BuscaCEPController.buscaProximo);
+// routes.get('/cep/:lag/:log', BuscaCEPController.buscaProximo);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.store);
-// routes.get('/listar', ListarController.index);
+routes.get('/descarte', DescarteController.index);
 //
 //Routes App sem Autenticação
+routes.post('/user', UserController.store);
+routes.post('/login_user', LoginUserController.store);
+routes.put('/esqueci_senha_user', EsqueciSenhaUserController.store);
 
-//
-
-routes.use(LoginPrestadorMiddleware);
+//Middleware
+routes.use(LoginMiddleware);
 
 //Routes Web com Autenticação
 routes.put('/prestador', PrestadorController.update);
+routes.get('/prestador/:id', PrestadorController.index);
+
+
+//Routes App com Autenticação
+routes.put('/user', UserController.update);
 
 export default routes;
