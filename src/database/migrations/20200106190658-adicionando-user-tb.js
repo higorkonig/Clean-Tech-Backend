@@ -56,6 +56,10 @@ module.exports = {
       pontuacao: {
 				type: Sequelize.STRING,
 				allowNull: false
+      },
+      nivel: {
+				type: Sequelize.STRING,
+				allowNull: false
 			},
 			created_at: {
 				type: Sequelize.DATE,

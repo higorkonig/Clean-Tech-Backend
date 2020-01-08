@@ -18,6 +18,7 @@ class User extends Model {
 				cidade: Sequelize.STRING,
 				estado: Sequelize.STRING,
 				pontuacao: { type: Sequelize.STRING, defaultValue: 0 },
+				nivel: { type: Sequelize.STRING, defaultValue: 0 },
 				sexo: Sequelize.STRING
 			},
 			{

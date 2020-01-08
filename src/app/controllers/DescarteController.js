@@ -12,14 +12,35 @@ class DescarteController {
 				quantidade: data.quantidade
 			},
 			{ attributes: ['id_user', 'id_prestador', 'tipo', 'quantidade'] }
-    );
-    
-    const totalPontos = Number(quantidade) + Number(req.body.pontos);
+		);
 
-    const user = await User.findByPk(req.userId);
+		const pontos = Number(quantidade) * Number(req.body.pontos);
 
-		const { pontuacao } = await user.update({
-			pontuacao: Number(user.dataValues.pontuacao) + Number(totalPontos)
+		const user = await User.findByPk(req.userId);
+
+		let userNivel = user.dataValues.nivel;
+
+		const totalPontos = Number(pontos) + Number(user.dataValues.pontuacao);
+
+		const niveis = Number(totalPontos) / 100 / 10 + 1;
+		let proximonNivel;
+		if (niveis <= userNivel) {
+			proximonNivel = 500 * Math.round(Number(userNivel));
+		} else {
+			proximonNivel = 500 * Math.round(Number(niveis));
+		}
+
+		if (totalPontos >= proximonNivel) {
+			if (niveis <= userNivel) {
+				userNivel = Number(userNivel) + 1;
+			} else {
+				userNivel = Number(userNivel) + Math.ceil(Number(niveis));
+			}
+		}
+
+		const { pontuacao, nivel } = await user.update({
+			pontuacao: totalPontos,
+			nivel: userNivel
 		});
 
 		return res.json({
@@ -30,7 +51,8 @@ class DescarteController {
 				quantidade
 			},
 			user: {
-				pontuacao
+				pontuacao,
+				nivel
 			}
 		});
 	}

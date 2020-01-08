@@ -25,7 +25,8 @@ class UserController {
 			cidade,
 			estado,
 			sexo,
-			pontuacao
+      pontuacao,
+      nivel
 		} = await User.create(req.body);
 
 		return res.status(200).json({
@@ -40,7 +41,8 @@ class UserController {
 			cidade,
 			estado,
 			sexo,
-			pontuacao
+      pontuacao,
+      nivel
 		});
 	}
 
