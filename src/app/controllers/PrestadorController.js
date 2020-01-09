@@ -20,6 +20,7 @@ class PrestadorController {
 			email,
 			tipo,
 			telefone,
+			coleta,
 			cpf_cnpj,
 			logradouro,
 			numero,
@@ -37,6 +38,7 @@ class PrestadorController {
 			responsavel,
 			email,
 			tipo,
+			coleta,
 			telefone,
 			cpf_cnpj,
 			logradouro,
@@ -99,38 +101,51 @@ class PrestadorController {
 	async index(req, res) {
 		const { id } = req.params;
 
-		const {
-			nome,
-			responsavel,
-			email,
-			tipo,
-			telefone,
-			cpf_cnpj,
-			logradouro,
-			numero,
-			cep,
-			bairro,
-			cidade,
-			estado,
-			longitude,
-			latitude
-		} = await Prestador.findOne({ where: { id } });
-		return res.json({
-			nome,
-			responsavel,
-			email,
-			tipo,
-			telefone,
-			cpf_cnpj,
-			logradouro,
-			numero,
-			cep,
-			bairro,
-			cidade,
-			estado,
-			longitude,
-			latitude
-		});
+		if (id == 'all') {
+			const data = await Prestador.findAll({
+				where: {
+					coleta: 0
+				}
+			});
+			return res.json({
+				data
+			});
+		} else {
+			const {
+				nome,
+				responsavel,
+				email,
+				tipo,
+				coleta,
+				telefone,
+				cpf_cnpj,
+				logradouro,
+				numero,
+				cep,
+				bairro,
+				cidade,
+				estado,
+				longitude,
+				latitude
+			} = await Prestador.findOne({ where: { id } });
+			return res.json({
+				nome,
+				responsavel,
+				email,
+				tipo,
+				telefone,
+				coleta,
+				cpf_cnpj,
+				logradouro,
+				numero,
+				cep,
+				bairro,
+				cidade,
+				estado,
+				longitude,
+				latitude
+			});
+		}
 	}
 }
 

@@ -29,6 +29,7 @@ routes.get('/descarte/:id', DescarteController.descarte);
 routes.post('/user', UserController.store);
 routes.post('/login_user', LoginUserController.store);
 routes.put('/esqueci_senha_user', EsqueciSenhaUserController.store);
+
 //
 //Middleware
 routes.use(LoginMiddleware);

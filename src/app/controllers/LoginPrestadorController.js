@@ -16,12 +16,13 @@ class LoginPrestadorController {
 			return res.status(400).json({ erro: 'Senha ou e-mail incorreto' });
 		}
 
-		const { id, nome, responsavel } = prestador;
+		const { id, nome, responsavel, coleta } = prestador;
 
 		return res.json({
 			prestador: {
 				id,
-				nome,
+        nome,
+        coleta,
         responsavel,
 				email
 			},

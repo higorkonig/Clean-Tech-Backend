@@ -42,15 +42,15 @@ class DescarteController {
 		const { pontuacao, nivel } = await user.update({
 			pontuacao: totalPontos,
 			nivel: userNivel
-    });
-    
-    const donoSocket = req.userConectados.id_prestador;
-    
-    console.log(donoSocket);
+		});
 
-    if(donoSocket) {
-      req.io.to(donoSocket).emit('quantidade', pontos)
-    }
+		// const donoSocket = req.userConectados.id_prestador;
+
+		// console.log(donoSocket);
+
+		// if(donoSocket) {
+		//   req.io.to(donoSocket).emit('quantidade', pontos)
+		// }
 
 		return res.json({
 			descarte: {
@@ -111,12 +111,13 @@ class DescarteController {
 			where: {
 				id_prestador: id
 			},
+			limit: 10,
+			order: [['id', 'ASC']],
 			include: [
 				{ model: User, as: 'user' },
 				{ model: Prestador, as: 'prestador' }
 			]
-    });
-    
+		});
 
 		return res.json(descarte);
 	}
