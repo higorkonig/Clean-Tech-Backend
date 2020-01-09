@@ -22,7 +22,7 @@ class LoginPrestadorController {
 			prestador: {
 				id,
 				nome,
-				responsavel,
+        responsavel,
 				email
 			},
 			tokenAcesso: jwt.sign({ id }, tokenConfig.secret, {

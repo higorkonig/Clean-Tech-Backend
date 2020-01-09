@@ -21,26 +21,26 @@ const routes = Router();
 routes.post('/prestador', PrestadorController.store);
 routes.post('/login', LoginPrestadorController.store);
 routes.get('/cep/:cep', BuscaCEPController.busca);
-// routes.get('/cep/:lag/:log', BuscaCEPController.buscaProximo);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.store);
 routes.get('/descarte', DescarteController.index);
+routes.get('/descarte/:id', DescarteController.descarte);
 //
 //Routes App sem Autenticação
 routes.post('/user', UserController.store);
 routes.post('/login_user', LoginUserController.store);
 routes.put('/esqueci_senha_user', EsqueciSenhaUserController.store);
-
+//
 //Middleware
 routes.use(LoginMiddleware);
-
+//
 //Routes Web com Autenticação
 routes.put('/prestador', PrestadorController.update);
 routes.get('/prestador/:id', PrestadorController.index);
-
+//
 
 //Routes App com Autenticação
 routes.put('/user', UserController.update);
 routes.post('/descarte', DescarteController.store);
-
+//
 
 export default routes;

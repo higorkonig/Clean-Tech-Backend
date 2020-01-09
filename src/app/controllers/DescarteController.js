@@ -23,6 +23,7 @@ class DescarteController {
 		const totalPontos = Number(pontos) + Number(user.dataValues.pontuacao);
 
 		const niveis = Number(totalPontos) / 100 / 10 + 1;
+
 		let proximonNivel;
 		if (niveis <= userNivel) {
 			proximonNivel = 500 * Math.round(Number(userNivel));
@@ -41,7 +42,15 @@ class DescarteController {
 		const { pontuacao, nivel } = await user.update({
 			pontuacao: totalPontos,
 			nivel: userNivel
-		});
+    });
+    
+    const donoSocket = req.userConectados.id_prestador;
+    
+    console.log(donoSocket);
+
+    if(donoSocket) {
+      req.io.to(donoSocket).emit('quantidade', pontos)
+    }
 
 		return res.json({
 			descarte: {
@@ -93,6 +102,23 @@ class DescarteController {
 		}
 
 		return res.json(result);
+	}
+
+	async descarte(req, res) {
+		const { id } = req.params;
+
+		let descarte = await Descarte.findAll({
+			where: {
+				id_prestador: id
+			},
+			include: [
+				{ model: User, as: 'user' },
+				{ model: Prestador, as: 'prestador' }
+			]
+    });
+    
+
+		return res.json(descarte);
 	}
 }
 

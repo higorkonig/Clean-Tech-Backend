@@ -23,11 +23,10 @@ class EsqueciSenhaPrestadorController {
 			{ where: { id: prestador.id } }
 		);
 
-    console.log(`Nova senha gerada pelo sistema: ${novaSenha}`);
     
 		mailer.sendMail(
 			{
-				from: 'Recuperação de senha <higor@shump.xyz>',
+				from: 'Recuperação de senha <Suporte CleanTech>',
 				to: `${prestador.responsavel} <${email}>`,
 				subject: `Recuperação de senha`,
 				html: `<p>Olá ${prestador.responsavel} da empresa ${prestador.nome}, aqui está a sua nova senha, lembre-se de quando acessar troca-la</p>
@@ -38,7 +37,8 @@ class EsqueciSenhaPrestadorController {
 
 				return res.send();
 			}
-		);
+    );
+    
 	}
 }
 

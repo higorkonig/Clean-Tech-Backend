@@ -13,7 +13,6 @@ module.exports = {
   },
 }
 
-
 //Conection localhost
 // module.exports = {
 //   dialect: 'mysql',

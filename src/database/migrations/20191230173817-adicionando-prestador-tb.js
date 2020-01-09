@@ -16,59 +16,63 @@ module.exports = {
 			responsavel: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      email: {
+			},
+			email: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
+			},
 			senha_hash: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      tipo: {
+			},
+			tipo: {
 				type: Sequelize.TEXT,
 				allowNull: false
-      },
-      telefone: {
+			},
+			coleta: {
+				type: Sequelize.BOOLEAN,
+				allowNull: false
+			},
+			telefone: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      cpf_cnpj: {
+			},
+			cpf_cnpj: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      logradouro: {
+			},
+			logradouro: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      numero: {
+			},
+			numero: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      cep: {
+			},
+			cep: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      bairro: {
+			},
+			bairro: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      cidade: {
+			},
+			cidade: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      estado: {
+			},
+			estado: {
 				type: Sequelize.STRING,
 				allowNull: false
-      },
-      longitude: {
+			},
+			longitude: {
 				type: Sequelize.STRING,
 				allowNull: true
-      },
-      latitude: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
+			},
+			latitude: {
+				type: Sequelize.STRING,
+				allowNull: true
+			},
 			created_at: {
 				type: Sequelize.DATE,
 				allowNull: false

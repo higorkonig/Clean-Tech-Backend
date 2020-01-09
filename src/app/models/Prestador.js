@@ -22,6 +22,7 @@ class Prestador extends Model {
 				longitude: Sequelize.STRING,
 				latitude: Sequelize.STRING,
         tipo: Sequelize.JSON, 
+        coleta: Sequelize.BOOLEAN
 			},
 			{
 				sequelize
