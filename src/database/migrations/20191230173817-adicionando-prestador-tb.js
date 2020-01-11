@@ -26,13 +26,21 @@ module.exports = {
 				allowNull: false
 			},
 			tipo: {
-				type: Sequelize.TEXT,
+				type: Sequelize.STRING,
 				allowNull: false
 			},
 			coleta: {
 				type: Sequelize.BOOLEAN,
 				allowNull: false
+      },
+      quantidade: {
+				type: Sequelize.NUMBER,
+				allowNull: false
 			},
+      totalColetado: {
+				type: Sequelize.NUMBER,
+				allowNull: false
+      },
 			telefone: {
 				type: Sequelize.STRING,
 				allowNull: false

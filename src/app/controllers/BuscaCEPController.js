@@ -22,7 +22,9 @@ class BuscaCEPController {
 						estado: result.state,
 						latitude: result.lat,
 						longitude: result.lng
-					};
+          };
+          
+
 					return res.json(data);
 				} else if (response.status == 400) {
 					const result = response.data;

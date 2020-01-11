@@ -10,12 +10,14 @@ import DescarteController from './app/controllers/DescarteController';
 //Controllers User
 import UserController from './app/controllers/UserController';
 import LoginUserController from './app/controllers/LoginUserController';
-import EsqueciSenhaUserController from './app/controllers/EsqueciSenhaUserController'
+import EsqueciSenhaUserController from './app/controllers/EsqueciSenhaUserController';
 
 //Middlewares
 import LoginMiddleware from './app/middlewares/LoginMiddleware';
 
 const routes = Router();
+
+
 
 //Routes Web sem Autenticação
 routes.post('/prestador', PrestadorController.store);
@@ -37,6 +39,7 @@ routes.use(LoginMiddleware);
 //Routes Web com Autenticação
 routes.put('/prestador', PrestadorController.update);
 routes.get('/prestador/:id', PrestadorController.index);
+routes.get('/prestador/:id/zerar', PrestadorController.zerar);
 //
 
 //Routes App com Autenticação

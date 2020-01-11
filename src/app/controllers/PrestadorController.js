@@ -21,6 +21,8 @@ class PrestadorController {
 			tipo,
 			telefone,
 			coleta,
+			quantidade,
+			totalColetado,
 			cpf_cnpj,
 			logradouro,
 			numero,
@@ -39,6 +41,8 @@ class PrestadorController {
 			email,
 			tipo,
 			coleta,
+			quantidade,
+			totalColetado,
 			telefone,
 			cpf_cnpj,
 			logradouro,
@@ -105,7 +109,8 @@ class PrestadorController {
 			const data = await Prestador.findAll({
 				where: {
 					coleta: 0
-				}
+				},
+				order: [['quantidade', 'DESC']]
 			});
 			return res.json({
 				data
@@ -116,6 +121,7 @@ class PrestadorController {
 				responsavel,
 				email,
 				tipo,
+				quantidade,
 				coleta,
 				telefone,
 				cpf_cnpj,
@@ -133,6 +139,7 @@ class PrestadorController {
 				responsavel,
 				email,
 				tipo,
+				quantidade,
 				telefone,
 				coleta,
 				cpf_cnpj,
@@ -146,6 +153,30 @@ class PrestadorController {
 				latitude
 			});
 		}
+	}
+
+	async zerar(req, res) {
+		const { id } = req.params;
+
+    const prestador = await Prestador.findByPk(id);
+    
+		await prestador.update({
+      quantidade: 0
+    });
+
+    const data = await Prestador.findAll({
+      where: {
+        coleta: 0
+      },
+      order: [['quantidade', 'DESC']]
+    });
+
+
+    req.io.emit(`atualizandoTabela${req.userId}`, data);
+
+		return res.json({
+			ok: true
+		});
 	}
 }
 

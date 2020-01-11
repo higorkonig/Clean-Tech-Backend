@@ -7,7 +7,7 @@ const transport = nodemailer.createTransport({
   port: 587,
   auth: {
     user: "suporte@cleantech.ga",
-    pass: "konig33244891"
+    pass: "tKE(94{vtR}7"
   }
 });
 

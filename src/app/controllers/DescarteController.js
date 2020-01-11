@@ -18,6 +18,8 @@ class DescarteController {
 
 		const user = await User.findByPk(req.userId);
 
+		const prestador = await Prestador.findByPk(id_prestador);
+
 		let userNivel = user.dataValues.nivel;
 
 		const totalPontos = Number(pontos) + Number(user.dataValues.pontuacao);
@@ -37,20 +39,41 @@ class DescarteController {
 			} else {
 				userNivel = Number(userNivel) + Math.ceil(Number(niveis));
 			}
-		}
+    }
+    
+    console.log(prestador)
+
+		await prestador.update({
+			quantidade: prestador.dataValues.quantidade + quantidade,
+			totalColetado: prestador.dataValues.totalColetado + quantidade
+		});
 
 		const { pontuacao, nivel } = await user.update({
 			pontuacao: totalPontos,
 			nivel: userNivel
 		});
 
-		// const donoSocket = req.userConectados.id_prestador;
+		let descarte = await Descarte.findAll({
+			where: {
+				id_prestador
+			},
+			include: [
+				{ model: User, as: 'user' },
+				{ model: Prestador, as: 'prestador' }
+			],
+			order: [['id', 'DESC']]
+		});
 
-		// console.log(donoSocket);
+		const dataP = await Prestador.findAll({
+			where: {
+				coleta: 0
+			},
+			order: [['quantidade', 'DESC']]
+		});
 
-		// if(donoSocket) {
-		//   req.io.to(donoSocket).emit('quantidade', pontos)
-		// }
+		req.io.emit(`atualizandoTabela`, dataP);
+
+		req.io.emit(`novoLixo${data.id_prestador}`, descarte);
 
 		return res.json({
 			descarte: {
@@ -111,8 +134,7 @@ class DescarteController {
 			where: {
 				id_prestador: id
 			},
-			limit: 10,
-			order: [['id', 'ASC']],
+			order: [['id', 'DESC']],
 			include: [
 				{ model: User, as: 'user' },
 				{ model: Prestador, as: 'prestador' }
