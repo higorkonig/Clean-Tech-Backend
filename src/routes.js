@@ -26,6 +26,8 @@ routes.get('/cep/:cep', BuscaCEPController.busca);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.store);
 routes.get('/descarte', DescarteController.index);
 routes.get('/descarte/:id', DescarteController.descarte);
+routes.get('/descartes', DescarteController.todos);
+
 //
 //Routes App sem Autenticação
 routes.post('/user', UserController.store);

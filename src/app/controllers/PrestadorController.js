@@ -108,7 +108,7 @@ class PrestadorController {
 		if (id == 'all') {
 			const data = await Prestador.findAll({
 				where: {
-					coleta: 0
+					coleta: 1
 				},
 				order: [['quantidade', 'DESC']]
 			});

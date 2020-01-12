@@ -39,9 +39,7 @@ class DescarteController {
 			} else {
 				userNivel = Number(userNivel) + Math.ceil(Number(niveis));
 			}
-    }
-    
-    console.log(prestador)
+		}
 
 		await prestador.update({
 			quantidade: prestador.dataValues.quantidade + quantidade,
@@ -66,7 +64,7 @@ class DescarteController {
 
 		const dataP = await Prestador.findAll({
 			where: {
-				coleta: 0
+				coleta: 1
 			},
 			order: [['quantidade', 'DESC']]
 		});
@@ -74,6 +72,15 @@ class DescarteController {
 		req.io.emit(`atualizandoTabela`, dataP);
 
 		req.io.emit(`novoLixo${data.id_prestador}`, descarte);
+
+		const dataPa = await Prestador.findAll({
+			where: {
+				coleta: 1
+			},
+			order: [['quantidade', 'DESC']]
+		});
+
+		req.io.emit(`novoLixo`, dataPa);
 
 		return res.json({
 			descarte: {
@@ -142,6 +149,17 @@ class DescarteController {
 		});
 
 		return res.json(descarte);
+	}
+
+	async todos(req, res) {
+		const dataP = await Prestador.findAll({
+			where: {
+				coleta: 1
+			},
+			order: [['quantidade', 'DESC']]
+		});
+
+		return res.json(dataP);
 	}
 }
 
