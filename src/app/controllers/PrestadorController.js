@@ -1,5 +1,3 @@
-import * as Yup from 'yup';
-
 //Model
 import Prestador from '../models/Prestador';
 
@@ -166,7 +164,7 @@ class PrestadorController {
 
     const data = await Prestador.findAll({
       where: {
-        coleta: 0
+        coleta: 1
       },
       order: [['quantidade', 'DESC']]
     });
