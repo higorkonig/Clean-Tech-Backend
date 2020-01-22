@@ -4,8 +4,9 @@ import Sequelize from 'sequelize';
 import Prestador from '../app/models/Prestador';
 import User from '../app/models/User';
 import Descarte from '../app/models/Descarte';
+import Senha from '../app/models/Senha';
 
-const models = [Prestador, User, Descarte];
+const models = [Prestador, User, Descarte, Senha];
 
 import databaseConfig from '../config/database';
 
