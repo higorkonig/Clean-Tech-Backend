@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
+
 
 import Prestador from '../models/Prestador';
 import Senha from '../models/Senha';
@@ -18,8 +20,6 @@ class EsqueciSenhaPrestadorController {
                 id_prestador: prestador.dataValues.id,
             }
         });
-
-        console.log(verificaHash);
 
         if (verificaHash && verificaHash.dataValues.expira > new Date()) {
             return res.status(400).json({erro: 'Token ainda válido'});
@@ -59,12 +59,20 @@ class EsqueciSenhaPrestadorController {
             }
         );
 
-        return res.status(200).json({ok: true});
+        return res.status(200).json(grava.dataValues);
 
     }
 
-    async store(req, res) {
-        return res.json({senha: req.body.senha});
+    async update(req, res) {
+        const {senha, id_prestador} = req.body;
+
+        const prestador = await Prestador.findByPk(id_prestador);
+        const senha_hash = await bcrypt.hash(senha, 8);
+
+        const foi = await prestador.update({
+            senha_hash
+        });
+        return res.json(foi)
     }
 }
 
