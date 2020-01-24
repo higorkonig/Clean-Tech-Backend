@@ -15,7 +15,8 @@ module.exports = {
       },
       hash: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       expira: {
         type: Sequelize.DATE,

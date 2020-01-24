@@ -25,6 +25,7 @@ routes.post('/login', LoginPrestadorController.store);
 routes.get('/cep/:cep', BuscaCEPController.busca);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.index);
 routes.put('/redefinir_senha', EsqueciSenhaPrestadorController.update);
+routes.get('/:hash', EsqueciSenhaPrestadorController.verifica);
 routes.get('/descarte', DescarteController.index);
 routes.get('/descarte/:id', DescarteController.descarte);
 routes.get('/descartes', DescarteController.todos);
