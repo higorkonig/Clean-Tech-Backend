@@ -52,12 +52,12 @@ class EsqueciSenhaPrestadorController {
 			from: 'Equipe CleanTech<suporte@cleantech.ga>',
 			to: `${prestador.responsavel} <${email}>`,
 			subject: `Recuperação de senha`,
-      template: 'redefinir',
-      context: {
-        responsavel,
-        nome,
-        link
-      }
+			template: 'redefinir',
+			context: {
+				responsavel,
+				nome,
+				link
+			}
 		});
 
 		return res.status(200).json(grava.dataValues);
@@ -69,7 +69,7 @@ class EsqueciSenhaPrestadorController {
 		const prestador = await Prestador.findByPk(id_prestador);
 		const senha_hash = await bcrypt.hash(senha, 8);
 
-		const foi = await prestador.update({
+		await prestador.update({
 			senha_hash
 		});
 
@@ -79,7 +79,7 @@ class EsqueciSenhaPrestadorController {
 			}
 		});
 
-		return res.json(foi);
+		return res.status(200).json({erro: "success"});
 	}
 
 	async verifica(req, res) {
@@ -96,7 +96,7 @@ class EsqueciSenhaPrestadorController {
 		if (senhaHash.dataValues.expira < new Date()) {
 			return res.json({ ok: false });
 		} else {
-			return res.json({ ok: true });
+			return res.json({ ok: true, id: senhaHash.dataValues.id_prestador });
 		}
 	}
 }
