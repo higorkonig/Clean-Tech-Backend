@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import Prestador from '../models/Prestador';
 import Senha from '../models/Senha';
 
-import mailer from '../../config/mailer';
+import Mail from '../../lib/Mail';
 
 class EsqueciSenhaPrestadorController {
 	async index(req, res) {
@@ -12,8 +12,7 @@ class EsqueciSenhaPrestadorController {
 
 		const prestador = await Prestador.findOne({ where: { email } });
 
-		if (!prestador)
-			return res.status(400).json({ erro: 'Usuário não existe T.T' });
+		if (!prestador) return res.status(400).json({ erro: 'E-mail incorreto' });
 
 		const verificaHash = await Senha.findOne({
 			where: {
@@ -22,7 +21,9 @@ class EsqueciSenhaPrestadorController {
 		});
 
 		if (verificaHash && verificaHash.dataValues.expira > new Date()) {
-			return res.status(400).json({ erro: 'Token ainda válido' });
+			return res.status(400).json({
+				erro: 'Ops, parece que você já solicitou um link de recuperação.'
+			});
 		} else {
 			await Senha.destroy({
 				where: {
@@ -44,20 +45,20 @@ class EsqueciSenhaPrestadorController {
 
 		const link = `http://localhost:3000/${hash}/redefinir`;
 
-		mailer.sendMail(
-			{
-				from: 'Recuperação de senha <suporte@cleantech.ga>',
-				to: `${prestador.responsavel} <${email}>`,
-				subject: `Recuperação de senha`,
-				html: `<p>Olá ${prestador.responsavel} da empresa ${prestador.nome}, aqui está o link para redefinir sua senha:</p>
-        			<p>link: <strong>${link}</strong></p>`
-			},
-			err => {
-				if (err) res.status(400).send({ erro: 'Falha ao enviar o email' });
+		const responsavel = prestador.responsavel;
+		const nome = prestador.nome;
 
-				return res.send();
-			}
-		);
+		await Mail.sendMail({
+			from: 'Equipe CleanTech<suporte@cleantech.ga>',
+			to: `${prestador.responsavel} <${email}>`,
+			subject: `Recuperação de senha`,
+      template: 'redefinir',
+      context: {
+        responsavel,
+        nome,
+        link
+      }
+		});
 
 		return res.status(200).json(grava.dataValues);
 	}
@@ -71,6 +72,13 @@ class EsqueciSenhaPrestadorController {
 		const foi = await prestador.update({
 			senha_hash
 		});
+
+		await Senha.destroy({
+			where: {
+				id_prestador: id_prestador
+			}
+		});
+
 		return res.json(foi);
 	}
 
@@ -86,9 +94,9 @@ class EsqueciSenhaPrestadorController {
 		if (!senhaHash) return res.status(400).json({ message: 'Token invalido' });
 
 		if (senhaHash.dataValues.expira < new Date()) {
-			return res.json({ ok: true });
+			return res.json({ ok: false });
 		} else {
-      return res.json({ ok: false });
+			return res.json({ ok: true });
 		}
 	}
 }

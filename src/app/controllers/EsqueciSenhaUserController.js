@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 
-import mailer from '../../config/mailer';
+import mailer from '../../lib/Mail';
 
 import User from '../models/User';
 
