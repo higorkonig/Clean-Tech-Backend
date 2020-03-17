@@ -4,6 +4,7 @@ import Descarte from '../models/Descarte';
 class DescarteController {
 	async store(req, res) {
 		const data = req.body;
+		const {userId} = req.params
 		const { id_user, id_prestador, tipo, quantidade } = await Descarte.create(
 			{
 				id_user: data.id_user,
@@ -16,7 +17,7 @@ class DescarteController {
 
 		const pontos = Number(quantidade) * Number(req.body.pontos);
 
-		const user = await User.findByPk(req.userId);
+		const user = await User.findByPk(Number(userId));
 
 		const prestador = await Prestador.findByPk(id_prestador);
 
@@ -152,6 +153,16 @@ class DescarteController {
 	}
 
 	async todos(req, res) {
+		const dataP = await Prestador.findAll({
+			where: {
+				coleta: 1
+			},
+			order: [['quantidade', 'DESC']]
+		});
+
+		return res.json(dataP);
+    }
+    async todosWeb(req, res) {
 		const dataP = await Prestador.findAll({
 			where: {
 				coleta: 1

@@ -25,7 +25,8 @@ class Server {
 			return next();
 		});
 		this.app.use(cors());
-		this.app.use(express.json());
+    	this.app.use(express.json());
+    	this.app.use('/public', express.static(__dirname + '/public'));
 	}
 
 	routes() {

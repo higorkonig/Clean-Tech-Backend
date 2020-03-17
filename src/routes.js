@@ -17,7 +17,10 @@ import LoginMiddleware from './app/middlewares/LoginMiddleware';
 
 const routes = Router();
 
-
+routes.get('/download', function(req, res){
+    const file = `${__dirname}/public/EKKOs.apk`;
+    res.download(file); // Set disposition and send it.
+  });
 
 //Routes Web sem Autenticação
 routes.post('/prestador', PrestadorController.store);
@@ -26,29 +29,28 @@ routes.get('/cep/:cep', BuscaCEPController.busca);
 routes.put('/esqueci_senha', EsqueciSenhaPrestadorController.index);
 routes.put('/redefinir_senha', EsqueciSenhaPrestadorController.update);
 routes.get('/:hash', EsqueciSenhaPrestadorController.verifica);
+routes.get('/list/lugar', DescarteController.todos);
 routes.get('/descarte', DescarteController.index);
+routes.get('/prestador/all', DescarteController.todosWeb);
+routes.post('/descarte', DescarteController.store);
 routes.get('/descarte/:id', DescarteController.descarte);
-routes.get('/descartes', DescarteController.todos);
 
 //
 //Routes App sem Autenticação
 routes.post('/user', UserController.store);
 routes.post('/login_user', LoginUserController.store);
 routes.put('/esqueci_senha_user', EsqueciSenhaUserController.store);
-
+routes.put('/user', UserController.update);
+routes.post('/descarte/:userId', DescarteController.store);
 //
+
 //Middleware
 routes.use(LoginMiddleware);
-//
+
 //Routes Web com Autenticação
 routes.put('/prestador', PrestadorController.update);
 routes.get('/prestador/:id', PrestadorController.index);
 routes.get('/prestador/:id/zerar', PrestadorController.zerar);
-//
-
-//Routes App com Autenticação
-routes.put('/user', UserController.update);
-routes.post('/descarte', DescarteController.store);
 //
 
 export default routes;

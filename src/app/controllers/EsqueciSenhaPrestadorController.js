@@ -43,7 +43,7 @@ class EsqueciSenhaPrestadorController {
 			expira: data
 		});
 
-		const link = `http://localhost:3000/${hash}/redefinir`;
+		const link = `https://cleantech.gq/${hash}/redefinir`;
 
 		const responsavel = prestador.responsavel;
 		const nome = prestador.nome;

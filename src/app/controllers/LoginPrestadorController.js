@@ -8,7 +8,8 @@ import Prestador from '../models/Prestador';
 
 class LoginPrestadorController {
 	async store(req, res) {
-		const { email, senha } = req.body;
+        const { email, senha } = req.body;
+
 
 		const prestador = await Prestador.findOne({ where: { email } });
 
@@ -17,7 +18,6 @@ class LoginPrestadorController {
 		}
 
 		const { id, nome, responsavel, coleta } = prestador;
-
 		return res.json({
 			prestador: {
 				id,

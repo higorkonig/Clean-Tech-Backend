@@ -1,8 +1,0 @@
-PUT http://localhost:3004/redefinir_senha
-Content-Type: application/json
-
-{
-"id_prestador": 1,
-"senha": "123"
-}
-###
